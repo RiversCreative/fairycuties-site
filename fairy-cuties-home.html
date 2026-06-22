@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairy Cuties — Welcome to Celestara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Grand+Hotel&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-1:#140A30;
+    --night-2:#231055;
+    --night-3:#3a1e78;
+    --purple:#7B4BD6;
+    --lavender:#B78BFF;
+    --pink:#FF5E9E;
+    --gold:#FFC94D;
+    --sky:#6ED6FF;
+    --teal:#34C6C0;
+    --cream:#FFF6E9;
+    --soft:#E9DBFF;
+    --display:'Cinzel',Georgia,serif;
+    --script:'Grand Hotel',cursive;
+    --body:'Quicksand',system-ui,sans-serif;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--body);
+    color:var(--cream);
+    background:var(--night-1);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+  /* ---------- shared ---------- */
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .eyebrow{
+    font-family:var(--body);font-weight:700;letter-spacing:.28em;
+    text-transform:uppercase;font-size:.72rem;color:var(--gold);
+    display:inline-block;margin-bottom:14px;
+  }
+  .section-title{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(1.8rem,4.6vw,3rem);line-height:1.1;
+    letter-spacing:.02em;color:#fff;
+    text-shadow:0 2px 30px rgba(183,139,255,.4);
+  }
+  .section-sub{
+    color:var(--soft);max-width:620px;margin:16px auto 0;
+    font-size:clamp(1rem,2.2vw,1.12rem);
+  }
+  .center{text-align:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--body);font-weight:700;font-size:1rem;
+    padding:14px 28px;border-radius:999px;cursor:pointer;border:none;
+    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+    letter-spacing:.01em;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,#FFD86B,#FFB13C);
+    color:#4a2c00;box-shadow:0 8px 26px rgba(255,180,60,.45);
+  }
+  .btn-ghost{
+    background:rgba(255,255,255,.07);color:#fff;
+    border:1.5px solid rgba(183,139,255,.55);
+    backdrop-filter:blur(4px);
+  }
+  .btn:hover{transform:translateY(-3px)}
+  .btn-gold:hover{box-shadow:0 12px 34px rgba(255,180,60,.6)}
+  .btn-ghost:hover{background:rgba(183,139,255,.22);border-color:var(--lavender)}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(20,10,48,.72);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(183,139,255,.18);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .mark{width:34px;height:34px;flex:0 0 auto}
+  .brand .word{
+    font-family:var(--script);font-size:1.7rem;line-height:1;
+    background:linear-gradient(90deg,var(--lavender),var(--pink) 70%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    padding-top:6px;
+  }
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{
+    font-weight:600;font-size:.93rem;color:var(--soft);
+    position:relative;padding:4px 0;transition:color .2s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--gold),var(--pink));transition:width .25s;
+  }
+  .nav-links a:hover{color:#fff}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{padding:10px 20px;font-size:.9rem}
+  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+  .hamburger span{display:block;width:24px;height:2.5px;background:var(--cream);margin:5px 0;border-radius:2px;transition:.3s}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;min-height:92vh;display:flex;align-items:center;
+    text-align:center;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 50% -10%,rgba(123,75,214,.55),transparent 60%),
+      radial-gradient(90% 60% at 80% 30%,rgba(255,94,158,.18),transparent 60%),
+      radial-gradient(90% 60% at 15% 40%,rgba(110,214,255,.16),transparent 60%),
+      linear-gradient(180deg,#1c0d44 0%,#2a1366 45%,#160a30 100%);
+  }
+  #stars{position:absolute;inset:0;z-index:0}
+  .hero-glow{
+    position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);
+    width:min(560px,86vw);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,201,77,.30),rgba(183,139,255,.12) 45%,transparent 68%);
+    filter:blur(10px);z-index:1;animation:breathe 7s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.85}50%{transform:translate(-50%,-50%) scale(1.08);opacity:1}}
+  .hero-content{position:relative;z-index:3;width:100%;padding:90px 0 70px}
+  .spark{width:clamp(96px,15vw,150px);margin:0 auto 22px;display:block;animation:floaty 6s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .spark .ring{transform-origin:center;animation:spin 26s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(2.7rem,9vw,6rem);line-height:.98;letter-spacing:.04em;
+    color:#fff;text-shadow:0 4px 40px rgba(255,201,77,.45);
+  }
+  .hero .script-line{
+    font-family:var(--script);font-size:clamp(1.7rem,5vw,2.9rem);
+    color:var(--gold);margin-top:2px;text-shadow:0 2px 24px rgba(255,201,77,.5);
+  }
+  .hero p.lede{
+    color:var(--soft);max-width:560px;margin:20px auto 0;
+    font-size:clamp(1.02rem,2.4vw,1.2rem);font-weight:500;
+  }
+  .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .hero-fade{position:absolute;left:0;right:0;bottom:0;height:140px;z-index:2;
+    background:linear-gradient(180deg,transparent,var(--night-1))}
+
+  /* ---------- lore strip ---------- */
+  .lore{position:relative;padding:84px 0;background:
+    radial-gradient(80% 100% at 50% 0,rgba(123,75,214,.25),transparent 70%),var(--night-1)}
+  .lore .wrap{max-width:760px;text-align:center}
+  .lore p{font-size:clamp(1.05rem,2.5vw,1.32rem);color:var(--cream);font-weight:500}
+  .lore .accent{color:var(--gold)}
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:34px 0 0}
+  .divider .line{height:1px;width:70px;background:linear-gradient(90deg,transparent,var(--lavender))}
+  .divider .line.r{background:linear-gradient(90deg,var(--lavender),transparent)}
+
+  /* ---------- fairies ---------- */
+  .fairies{padding:90px 0;background:linear-gradient(180deg,var(--night-1),#1d0f47)}
+  .trine{font-family:var(--display);letter-spacing:.32em;color:var(--lavender);
+    font-size:.8rem;text-transform:uppercase;margin-top:10px}
+  .fairy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
+  .fairy-card{
+    position:relative;border-radius:24px;padding:28px 22px 26px;text-align:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.12);overflow:hidden;
+    transition:transform .35s ease,box-shadow .35s ease,border-color .35s;
+  }
+  .fairy-card::before{content:"";position:absolute;inset:0;opacity:.5;
+    background:radial-gradient(120% 70% at 50% 0,var(--c-glow),transparent 60%);pointer-events:none}
+  .fairy-card:hover{transform:translateY(-8px);border-color:var(--c-accent);
+    box-shadow:0 22px 50px -18px var(--c-glow)}
+  .fairy-card.soli{--c-accent:var(--gold);--c-glow:rgba(255,201,77,.5)}
+  .fairy-card.luma{--c-accent:var(--lavender);--c-glow:rgba(183,139,255,.5)}
+  .fairy-card.twyla{--c-accent:var(--teal);--c-glow:rgba(52,198,192,.5)}
+  .portrait{
+    position:relative;z-index:1;aspect-ratio:3/4;border-radius:18px;margin-bottom:18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(180deg,rgba(20,10,48,.5),rgba(20,10,48,.85));
+    border:1.5px dashed var(--c-accent);
+  }
+  .portrait .sym{width:60px;height:60px;filter:drop-shadow(0 0 14px var(--c-glow))}
+  .portrait .slot{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--soft);opacity:.7;font-weight:600}
+  .fairy-card h3{font-family:var(--display);font-size:1.7rem;color:#fff;letter-spacing:.04em;position:relative;z-index:1}
+  .fairy-card .role{color:var(--c-accent);font-weight:700;font-size:.92rem;margin-top:2px;position:relative;z-index:1}
+  .fairy-card .tag{font-family:var(--script);font-size:1.3rem;color:var(--cream);margin-top:12px;position:relative;z-index:1}
+  .fairy-card .pal{display:flex;gap:7px;justify-content:center;margin-top:16px;position:relative;z-index:1}
+  .fairy-card .pal i{width:16px;height:16px;border-radius:50%;display:block;box-shadow:0 0 8px rgba(0,0,0,.3)}
+  .fairy-card .buddy{margin-top:16px;font-size:.84rem;color:var(--soft);position:relative;z-index:1}
+  .fairy-card .buddy b{color:#fff}
+
+  /* ---------- glowlings ---------- */
+  .glowlings{padding:84px 0;background:#1d0f47}
+  .glow-row{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:48px}
+  .glow-chip{
+    flex:1 1 180px;max-width:210px;border-radius:20px;padding:24px 18px;text-align:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.1);transition:transform .3s,box-shadow .3s;
+  }
+  .glow-chip:hover{transform:translateY(-6px);box-shadow:0 16px 38px -16px var(--g)}
+  .glow-orb{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#fff,var(--g) 55%,transparent 78%);
+    box-shadow:0 0 24px var(--g)}
+  .glow-chip h4{font-family:var(--display);font-size:1.12rem;color:#fff;letter-spacing:.03em}
+  .glow-chip .gt{font-size:.8rem;color:var(--soft);margin-top:3px}
+  .glow-chip .pair{font-size:.76rem;color:var(--gold);margin-top:8px;font-weight:600}
+
+  /* ---------- world ---------- */
+  .world{padding:90px 0;background:linear-gradient(180deg,#1d0f47,#160a30)}
+  .realm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  .realm{
+    position:relative;border-radius:18px;padding:26px 20px;min-height:158px;
+    display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;
+    border:1px solid rgba(255,255,255,.1);transition:transform .3s,border-color .3s;
+    background:linear-gradient(160deg,var(--ra),var(--rb));
+  }
+  .realm:hover{transform:translateY(-6px) scale(1.015);border-color:rgba(255,255,255,.4)}
+  .realm::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(80% 60% at 80% 10%,rgba(255,255,255,.18),transparent 60%)}
+  .realm h4{font-family:var(--display);font-size:1.1rem;color:#fff;position:relative;z-index:1;letter-spacing:.02em}
+  .realm p{font-size:.82rem;color:rgba(255,255,255,.86);position:relative;z-index:1;margin-top:4px}
+  .realm .star{position:absolute;top:14px;left:16px;font-size:1.2rem;z-index:1;opacity:.9}
+
+  /* ---------- watch ---------- */
+  .watch{padding:90px 0;background:
+    radial-gradient(70% 90% at 50% 0,rgba(255,94,158,.18),transparent 70%),#160a30}
+  .ep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .ep{
+    border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);transition:transform .3s,box-shadow .3s;
+  }
+  .ep:hover{transform:translateY(-6px);box-shadow:0 20px 44px -20px rgba(255,94,158,.5)}
+  .ep .thumb{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--ea),var(--eb))}
+  .ep .thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 40%,rgba(0,0,0,.06),rgba(0,0,0,.42))}
+  .play{position:relative;z-index:1;width:62px;height:62px;border-radius:50%;
+    background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.35);transition:transform .25s}
+  .ep:hover .play{transform:scale(1.1)}
+  .play::after{content:"";border-left:18px solid var(--purple);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+  .ep .body{padding:18px 20px 20px}
+  .ep .num{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .ep h4{font-family:var(--display);font-size:1.18rem;color:#fff;margin-top:6px}
+  .ep p{font-size:.86rem;color:var(--soft);margin-top:5px}
+  .watch-cta{margin-top:46px}
+
+  /* ---------- join ---------- */
+  .join{padding:96px 0;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#3a1e78,#7B4BD6 55%,#b85bbf)}
+  .join::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(60% 80% at 20% 20%,rgba(255,201,77,.3),transparent 55%),
+              radial-gradient(50% 70% at 85% 80%,rgba(110,214,255,.28),transparent 55%)}
+  .join .wrap{position:relative;z-index:1;max-width:640px;text-align:center}
+  .join h2{font-family:var(--display);font-size:clamp(1.8rem,4.6vw,2.8rem);color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+  .join p{color:#fdf3ff;margin-top:14px;font-size:1.06rem;font-weight:500}
+  .signup{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;justify-content:center}
+  .signup input{
+    flex:1 1 280px;max-width:360px;padding:15px 22px;border-radius:999px;border:none;
+    font-family:var(--body);font-size:1rem;color:#3a1e78;background:rgba(255,255,255,.96);
+  }
+  .signup input::placeholder{color:#9a86c4}
+  .thanks{margin-top:24px;font-family:var(--script);font-size:1.8rem;color:var(--gold);
+    text-shadow:0 2px 18px rgba(0,0,0,.25);min-height:0}
+
+  /* ---------- footer ---------- */
+  footer{background:#100722;padding:70px 0 34px;border-top:1px solid rgba(183,139,255,.16)}
+  .values{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;margin-bottom:50px}
+  .values span{font-family:var(--display);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  .values span b{color:var(--gold);font-weight:700}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:46px}
+  .foot-brand .word{font-family:var(--script);font-size:2rem;
+    background:linear-gradient(90deg,var(--lavender),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot-brand p{color:var(--soft);font-size:.9rem;margin-top:10px;max-width:300px}
+  footer h5{font-family:var(--display);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+  footer ul{list-style:none}
+  footer ul li{margin-bottom:10px}
+  footer ul li a{color:var(--soft);font-size:.92rem;transition:color .2s}
+  footer ul li a:hover{color:var(--gold)}
+  .soon{font-size:.68rem;color:var(--pink);border:1px solid rgba(255,94,158,.5);
+    border-radius:999px;padding:2px 9px;margin-left:8px;letter-spacing:.08em;text-transform:uppercase}
+  .socials{display:flex;gap:12px;margin-top:14px}
+  .socials a{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);transition:.25s;color:var(--soft)}
+  .socials a:hover{background:var(--purple);color:#fff;transform:translateY(-3px)}
+  .copyright{text-align:center;color:#8d7bb5;font-size:.82rem;padding-top:28px;border-top:1px solid rgba(255,255,255,.07)}
+  .copyright .ws{font-family:var(--script);color:var(--lavender);font-size:1.2rem}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:900px){
+    .nav-links{position:fixed;inset:70px 0 auto 0;flex-direction:column;gap:0;
+      background:rgba(20,10,48,.97);backdrop-filter:blur(14px);padding:10px 0;
+      transform:translateY(-120%);transition:transform .35s ease;border-bottom:1px solid rgba(183,139,255,.2)}
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{padding:14px 24px;width:100%;border-bottom:1px solid rgba(255,255,255,.05)}
+    .nav-links a::after{display:none}
+    .nav-links .nav-cta{margin:14px 24px;justify-content:center}
+    .hamburger{display:block}
+    .fairy-grid{grid-template-columns:1fr;max-width:380px;margin-left:auto;margin-right:auto}
+    .realm-grid{grid-template-columns:repeat(2,1fr)}
+    .ep-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+    .foot-grid{grid-template-columns:1fr;gap:30px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Fairy Cuties home">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50 6 L58 38 L92 50 L58 62 L50 94 L42 62 L8 50 L42 38 Z" fill="#FFC94D"/>
+        <path d="M50 30c-6-9-20-4-20 7 0 8 13 15 20 22 7-7 20-14 20-22 0-11-14-16-20-7z" fill="#FF5E9E"/>
+      </svg>
+      <span class="word">Fairy Cuties</span>
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#fairies">Fairy Cuties</a>
+      <a href="#glowlings">Glowlings</a>
+      <a href="#world">The World</a>
+      <a href="#watch">Watch</a>
+      <a href="#parents">Parents</a>
+      <a class="btn btn-gold nav-cta" href="#watch">Watch Episodes</a>
+    </nav>
+    <button class="hamburger" id="burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-content wrap">
+    <svg class="spark" viewBox="0 0 120 120" aria-hidden="true">
+      <g class="ring">
+        <circle cx="60" cy="12" r="5" fill="#FFC94D"/>
+        <circle cx="102" cy="84" r="5" fill="#B78BFF"/>
+        <circle cx="18" cy="84" r="5" fill="#34C6C0"/>
+      </g>
+      <path d="M60 24 L68 54 L98 60 L68 66 L60 96 L52 66 L22 60 L52 54 Z" fill="#FFD86B"/>
+      <path d="M60 44c-5-7-16-3-16 6 0 7 11 12 16 18 5-6 16-11 16-18 0-9-11-13-16-6z" fill="#FF5E9E"/>
+    </svg>
+    <span class="eyebrow">A hidden world of magic</span>
+    <h1>CELESTARA</h1>
+    <div class="script-line">Together We Shine!</div>
+    <p class="lede">Step beyond the Heartwood Door into a world where the Sun, the Moon, and the Stars come together — and the Fairy Cuties are born from their light.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#fairies">Enter the World</a>
+      <a class="btn btn-ghost" href="#watch">▶ Watch Episodes</a>
+    </div>
+  </div>
+  <div class="hero-fade" aria-hidden="true"></div>
+</section>
+
+<!-- LORE -->
+<section class="lore reveal">
+  <div class="wrap">
+    <span class="eyebrow">What is Celestara?</span>
+    <p>Long ago, nature created a hidden place of magic. When the Sun, the Moon, and the Stars aligned, their light joined into one — <span class="accent">the Celestial Spark</span>. From that spark, the first Fairy Cuties were born to protect, inspire, and bring light to the world.</p>
+    <div class="divider" aria-hidden="true"><span class="line"></span>✦<span class="line r"></span></div>
+  </div>
+</section>
+
+<!-- FAIRY CUTIES -->
+<section class="fairies" id="fairies">
+  <div class="wrap center">
+    <span class="eyebrow">Meet the Fairy Cuties</span>
+    <h2 class="section-title">Three Lights, One Spark</h2>
+    <p class="section-sub">Best friends on one magical mission — to bring light, love, and kindness wherever they go.</p>
+    <div class="trine">Sun&nbsp;·&nbsp;Moon&nbsp;·&nbsp;Star</div>
+
+    <div class="fairy-grid">
+      <!-- SOLI -->
+      <article class="fairy-card soli reveal">
+        <div class="portrait">
+          <svg class="sym" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="13" fill="#FFC94D"/><g stroke="#FFC94D" stroke-width="3" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="14"/><line x1="32" y1="50" x2="32" y2="60"/><line x1="4" y1="32" x2="14" y2="32"/><line x1="50" y1="32" x2="60" y2="32"/><line x1="12" y1="12" x2="19" y2="19"/><line x1="45" y1="45" x2="52" y2="52"/><line x1="52" y1="12" x2="45" y2="19"/><line x1="19" y1="45" x2="12" y2="52"/></g></svg>
+          <span class="slot">Soli artwork here</span>
+        </div>
+        <h3>SOLI</h3>
+        <div class="role">The Sun Fairy</div>
+        <div class="tag">Shine Bright. Be Your Light.</div>
+        <div class="pal"><i style="background:#FFC94D"></i><i style="background:#F59E2E"></i><i style="background:#FBE3A1"></i><i style="background:#34C6C0"></i></div>
+        <div class="buddy">Glowling companion · <b>Sunny</b></div>
+      </article>
+      <!-- LUMA -->
+      <article class="fairy-card luma reveal">
+        <div class="portrait">
+          <svg class="sym" viewBox="0 0 64 64" aria-hidden="true"><path d="M40 8a24 24 0 1 0 12 44A20 20 0 0 1 40 8z" fill="#B78BFF"/></svg>
+          <span class="slot">Luma artwork here</span>
+        </div>
+        <h3>LUMA</h3>
+        <div class="role">The Moon Fairy</div>
+        <div class="tag">Dream Softly. Shine Gently.</div>
+        <div class="pal"><i style="background:#B78BFF"></i><i style="background:#9D6BE8"></i><i style="background:#D9CBF5"></i><i style="background:#FFC94D"></i></div>
+        <div class="buddy">Glowling companion · <b>Mochi</b></div>
+      </article>
+      <!-- TWYLA -->
+      <article class="fairy-card twyla reveal">
+        <div class="portrait">
+          <svg class="sym" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6 L39 25 L59 26 L43 38 L49 58 L32 46 L15 58 L21 38 L5 26 L25 25 Z" fill="#34C6C0"/></svg>
+          <span class="slot">Twyla artwork here</span>
+        </div>
+        <h3>TWYLA</h3>
+        <div class="role">The Star Fairy</div>
+        <div class="tag">Dream Big. Sparkle Bright.</div>
+        <div class="pal"><i style="background:#34C6C0"></i><i style="background:#1F8E9C"></i><i style="background:#BFEFEC"></i><i style="background:#FFC94D"></i></div>
+        <div class="buddy">Glowling companion · <b>Pip</b></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GLOWLINGS -->
+<section class="glowlings" id="glowlings">
+  <div class="wrap center">
+    <span class="eyebrow">Meet the Glowlings</span>
+    <h2 class="section-title">Magical Companions</h2>
+    <p class="section-sub">Born from tiny Starblossoms near the Celestial Tree, each Glowling chooses its own Fairy Cutie — and never lets go.</p>
+    <div class="glow-row">
+      <div class="glow-chip reveal" style="--g:#FFB13C"><div class="glow-orb"></div><h4>Sunny</h4><div class="gt">Sunbeam Glowling</div><div class="pair">Soli's best friend</div></div>
+      <div class="glow-chip reveal" style="--g:#B78BFF"><div class="glow-orb"></div><h4>Mochi</h4><div class="gt">Moonbeam Glowling</div><div class="pair">Luma's best friend</div></div>
+      <div class="glow-chip reveal" style="--g:#6ED6FF"><div class="glow-orb"></div><h4>Pip</h4><div class="gt">Starbeam Glowling</div><div class="pair">Twyla's best friend</div></div>
+      <div class="glow-chip reveal" style="--g:#FFD86B"><div class="glow-orb"></div><h4>Quill</h4><div class="gt">Starlight Firefly</div><div class="pair">Orion's helper</div></div>
+      <div class="glow-chip reveal" style="--g:#7FD17A"><div class="glow-orb"></div><h4>Rootleaf</h4><div class="gt">Heartroot Sprite</div><div class="pair">Aurelia's guide</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORLD -->
+<section class="world" id="world">
+  <div class="wrap center">
+    <span class="eyebrow">Explore the World</span>
+    <h2 class="section-title">Inside Celestara</h2>
+    <p class="section-sub">From the school at its heart to the realms beyond — every corner of Celestara holds a little more magic.</p>
+    <div class="realm-grid">
+      <div class="realm reveal" style="--ra:#7B4BD6;--rb:#3a1e78"><span class="star">✦</span><h4>Sparkle Grove</h4><p>The school of magic & kindness.</p></div>
+      <div class="realm reveal" style="--ra:#E9A23B;--rb:#8a5418"><span class="star">☀</span><h4>Sunblossom Grove</h4><p>Home of the Sun Fairies.</p></div>
+      <div class="realm reveal" style="--ra:#7E63C9;--rb:#2f1a63"><span class="star">☾</span><h4>Moonlit Meadows</h4><p>Where nighttime magic plays.</p></div>
+      <div class="realm reveal" style="--ra:#3f56b8;--rb:#1d2766"><span class="star">★</span><h4>Starlight Fields</h4><p>Where wishes take flight.</p></div>
+      <div class="realm reveal" style="--ra:#b85bbf;--rb:#5e2a6e"><span class="star">♡</span><h4>Wish Hollow</h4><p>Where wishes come from the heart.</p></div>
+      <div class="realm reveal" style="--ra:#5a3fb0;--rb:#2a1a5e"><span class="star">✦</span><h4>Glowling Village</h4><p>Where friends glow together.</p></div>
+      <div class="realm reveal" style="--ra:#6a4bc0;--rb:#2c1a66"><span class="star">✎</span><h4>Feather Library</h4><p>Where stories and wisdom live.</p></div>
+      <div class="realm reveal" style="--ra:#3b3f9c;--rb:#171a52"><span class="star">✧</span><h4>Starwatch Point</h4><p>Where dreams look up.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WATCH -->
+<section class="watch" id="watch">
+  <div class="wrap center">
+    <span class="eyebrow">Watch Episodes</span>
+    <h2 class="section-title">Join the Adventure</h2>
+    <p class="section-sub">New magical adventures with the Fairy Cuties — start with a one-minute welcome, then dive into the stories.</p>
+    <div class="ep-grid">
+      <article class="ep reveal" style="--ea:#7B4BD6;--eb:#FF5E9E"><div class="thumb"><div class="play"></div></div><div class="body"><div class="num">Start Here</div><h4>Welcome to Celestara</h4><p>Meet the Fairy Cuties as they dance, giggle, and show you their world.</p></div></article>
+      <article class="ep reveal" style="--ea:#E9A23B;--eb:#7B4BD6"><div class="thumb"><div class="play"></div></div><div class="body"><div class="num">Episode 1</div><h4>The Spark Begins</h4><p>The very first sparkle — and the friendship that lights it all.</p></div></article>
+      <article class="ep reveal" style="--ea:#34C6C0;--eb:#3a1e78"><div class="thumb"><div class="play"></div></div><div class="body"><div class="num">Episode 2</div><h4>The Adventure Grows</h4><p>The magic deepens as the Cuties learn, grow, and shine together.</p></div></article>
+    </div>
+    <div class="watch-cta"><a class="btn btn-gold" href="#" onclick="return false">▶ Watch on YouTube</a></div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="wrap">
+    <h2>Join the Magic</h2>
+    <p>Be first to know when new episodes, books, and sparkle arrive in Celestara.</p>
+    <div class="signup" id="signup">
+      <input type="email" id="email" placeholder="Your email address" aria-label="Email address">
+      <button class="btn btn-gold" id="joinBtn" type="button">Join the Magic ✦</button>
+    </div>
+    <div class="thanks" id="thanks" role="status"></div>
+  </div>
+</section>
+
+<!-- PARENTS quick band (anchor target) -->
+<section class="lore" id="parents" style="padding:70px 0">
+  <div class="wrap">
+    <span class="eyebrow">Parents & Educators</span>
+    <p style="font-size:1.1rem">Every story is built on kindness, friendship, and imagination — with activity guides, discussion starters, and printables coming soon to help the magic keep growing at home and in the classroom.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="values">
+      <span><b>✦</b> Kindness</span><span><b>✦</b> Friendship</span><span><b>✦</b> Courage</span>
+      <span><b>✦</b> Imagination</span><span><b>✦</b> Growth</span><span><b>✦</b> Togetherness</span>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="word">Fairy Cuties</div>
+        <p>A magical world of friendship, sparkle, and adventure — where every heart shines and together, we create the Celestial Spark.</p>
+        <div class="socials">
+          <a href="#" onclick="return false" aria-label="YouTube">▶</a>
+          <a href="#" onclick="return false" aria-label="Instagram">◎</a>
+          <a href="#" onclick="return false" aria-label="Facebook">f</a>
+          <a href="#" onclick="return false" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#fairies">Meet the Fairy Cuties</a></li>
+          <li><a href="#glowlings">Meet the Glowlings</a></li>
+          <li><a href="#world">Sparkle Grove</a></li>
+          <li><a href="#watch">Watch Episodes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>More</h5>
+        <ul>
+          <li><a href="#parents">Parents & Educators</a></li>
+          <li><a href="#" onclick="return false">Books & Activities<span class="soon">soon</span></a></li>
+          <li><a href="#" onclick="return false">Shop<span class="soon">soon</span></a></li>
+          <li><a href="#join">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <span class="ws">We Learn. We Grow. We Shine Together.</span><br>
+      © 2026 Fairy Cuties · A Rivers Creative / T.S. Rivers world. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.getElementById('burger');
+  const links=document.getElementById('navlinks');
+  burger.addEventListener('click',()=>{
+    const open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+  });
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    links.classList.remove('open');burger.setAttribute('aria-expanded','false');
+  }));
+
+  // scroll reveal
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // email join (in-memory, friendly confirmation — no storage)
+  const joinBtn=document.getElementById('joinBtn');
+  const email=document.getElementById('email');
+  const thanks=document.getElementById('thanks');
+  const signup=document.getElementById('signup');
+  function join(){
+    const v=email.value.trim();
+    const ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    if(!ok){thanks.textContent='Oops — pop in a valid email to join the magic!';return;}
+    signup.style.display='none';
+    thanks.textContent='Welcome to Celestara, friend! ✦';
+  }
+  joinBtn.addEventListener('click',join);
+  email.addEventListener('keydown',e=>{if(e.key==='Enter')join();});
+
+  // starfield (respects reduced motion)
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=document.getElementById('stars');
+  const ctx=canvas.getContext('2d');
+  let stars=[],w,h;
+  function resize(){
+    const hero=canvas.parentElement;
+    w=canvas.width=hero.offsetWidth;h=canvas.height=hero.offsetHeight;
+    const count=Math.min(120,Math.floor(w*h/12000));
+    stars=Array.from({length:count},()=>({
+      x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.6+.4,
+      a:Math.random(),sp:Math.random()*.02+.004,
+      c:['#FFFFFF','#FFE9B0','#D8C4FF','#B6ECFF'][Math.floor(Math.random()*4)]
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    stars.forEach(s=>{
+      s.a+=s.sp;const tw=.5+Math.abs(Math.sin(s.a))*.5;
+      ctx.globalAlpha=tw;ctx.fillStyle=s.c;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  resize();draw();
+  window.addEventListener('resize',resize);
+</script>
+</body>
+</html>
